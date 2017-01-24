@@ -54,3 +54,48 @@ public class Convert {
 }
 
 //output = 160.9
+
+//not sure if the following were the problems supposed to be completed, quickly did a few
+
+//2.1
+import java.util.Scanner;
+
+public class DisplayTime {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		//Prompt the user for input
+		
+		System.out.print("Enter a celsius degree: ");
+		int celsius = input.nextInt();
+		int fahenheit = (9/5) * celsius + 32; // Find fahrenheit
+		
+		System.out.println(celsius + " celsius is " + fahenheit + "fahenheit");
+
+	}
+
+}
+
+//2.5
+
+import java.util.Scanner;
+
+public class DisplayTime {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		//Prompt the user for input
+		
+		System.out.print("Enter a subtotal: ");
+		int subtotal = input.nextInt();
+
+		System.out.print("Enter a gratuity: ");
+		int gratuity = input.nextInt();
+
+
+		int subtotal = subtotal/gratuity ; // Find 
+		
+		System.out.println(subtotal);
+
+	}
+
+}
+
