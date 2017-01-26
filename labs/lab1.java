@@ -3,110 +3,94 @@
 //Date: 12.22.17
 //lab 1
 
-//1.4
-// What unit is used to measure CPU speed?
-// Hertz
-
-//2.1
-//Errors: static was missing, string was uncapitilized
-public class Test {
-    public static void main(String[] args) { 
-    	double i = 50.0;
-        double k = i + 50.0;
-        double j = k + 1;
-        
-        System.out.println("j is " + j + " and k is " + k);
-    }
-}
-
-//2.5
-//Errors: k was not defined
-public class Test {
+//1.4 
+public class ExpTable {
 	public static void main(String[] args) {
-		int k = 2;
-		int i = k + 2;
-		System.out.println(i);
-	}
-}
-
-//2.6
-//Errors: i, j, k are were not correctly defined  
-public class Test {
-	public static void main(String[] args) {
-		int i = 2;
-		int j = 2;
-		int k = 2;
-
-		System.out.println(i + " " + j + " " + k);
-	}
-}
-
-//2.9
-
-public class Convert {
-	public static void main(String[] args) {
-		double miles = 100;
-		final double KILOMETERS_PER_MILE = 1.609;
-		double kilometers = miles * KILOMETERS_PER_MILE;
+		int a = 1;
+		System.out.println("a  a^2   a^3");
 		
-		System.out.println(kilometers);
+		while (a < 5) {
+		int b = a * a;
+		int c = a * a * a;
+
+		System.out.println(a + "   " + b + "    " + c);
+		a = a + 1;
+		}
 	}
 }
 
-//output = 160.9
-
-//not sure if the following were the problems supposed to be completed, quickly did a few
 
 //2.1
 import java.util.Scanner;
 
-public class DisplayTime {
+public class TempConvert {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		//Prompt the user for input
 		
 		System.out.print("Enter a celsius degree: ");
 		int celsius = input.nextInt();
-		int fahenheit = (9/5) * celsius + 32; // Find fahrenheit
+		double fahenheit = ((9.0/5.0) * celsius + 32); // Find fahrenheit
 		
-		System.out.println(celsius + " celsius is " + fahenheit + "fahenheit");
+		System.out.println(celsius + " Celsius is " + fahenheit + " Fahenheit");
 
 	}
 
 }
 
 //2.5
+import java.util.Scanner;
 
-import java.util.Scannergit ;
-
-public class DisplayTime {
+public class TipCalc {
 	public static void main(String[] args) {
+		//Create Scanner
 		Scanner input = new Scanner(System.in);
+		
 		//Prompt the user for input
+		System.out.print("Enter a subtotal and Gratuity: ");
+		double subtotal = input.nextInt();
+		double gratuityRate = input.nextInt();
+
+		//calculate Gratuity 
+		double gratuity =(gratuityRate/10);
+		//add gratuity to subtotal to create total cost
+		double total = gratuity + subtotal;
 		
-		System.out.print("Enter a subtotal: ");
-		int subtotal = input.nextInt();
-
-		System.out.print("Enter a gratuity: ");
-		int gratuity = input.nextInt();
-
-
-		int subtotal = subtotal/gratuity ; // Find 
-		
-		System.out.println(subtotal);
+		//Output answer
+		System.out.println("The Gratuity is $" + gratuity + " and total is $" + total);
 
 	}
 
 }
 
+//2.6
+import java.util.Scanner;
 
+public class DigitAddition {
+	public static void main(String[] args) {
+		//Create Scanner
+		Scanner input = new Scanner(System.in);
+
+		//Prompt a user for a integer between 0 and 1000
+		System.out.println("Enter a number between 0 and 1000: ");
+		int num = input.nextInt();
+
+		//Add Digits of integer
+		int ones = (num % 10);
+		int tens = ((num / 10 ) % 10);
+		int hundreds = ((num / 100 ) % 10);
+
+		int total = (ones + tens + hundreds);
+
+		System.out.println("The sum of the digits is " + total);
+
+	}
+}
 
 //2.9
-package lab1;
 import java.util.Scanner;
  
- 
-public class Problem29 {
+public class VelocityCalc {
  
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -118,10 +102,8 @@ public class Problem29 {
         double v1 = input.nextDouble();
         double t = input.nextDouble();
          
-        //Compute average acceleration
+        //calculate average acceleration and display answer
         double avgAcceleration = (v1 - v0) / t;
-         
-        //Display results
         System.out.println("The average acceleration is: " + avgAcceleration);
          
  
