@@ -22,7 +22,7 @@ public class FutDates {
 		//Create a variable to hold day of week and give it a placeholder
 		String dayString = "Day";
 		//Switch the name of week to correct one
-		switch(day % 7) {
+		switch(day) {
 			case 0: dayString = "Sunday"; break;
 			case 1: dayString = "Monday"; break;
 			case 2: dayString = "Tuesday"; break;
@@ -35,6 +35,7 @@ public class FutDates {
 
 		//Create a variable to hold day of week and give it a placeholder
 		String futString = "Future Day";
+		futDay = day + futDay; 
 		//Switch the name of week to correct one
 		switch(futDay % 7) {
 			case 0: futString = "Sunday"; break;
