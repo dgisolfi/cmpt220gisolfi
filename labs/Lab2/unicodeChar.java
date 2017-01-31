@@ -14,11 +14,11 @@ public class unicodeChar {
 
 		//Prompt the user to enter a character
 		System.out.print("Enter a character: ");
-		String charInput = input.next();
+		char charInput = (char)input.next().charAt(0);
 		
-		uniVal = ((int)charInput
+		int uniVal = (int)charInput;
 		//Output Unicode
-		System.out.println("The Unicode for the character" + charInput + " is " + un;
+		System.out.println("The Unicode for the character" + charInput + " is " + uniVal);
 	}
 }
 
