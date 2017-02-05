@@ -18,11 +18,13 @@ public class VowelConsLetter {
 		letter.toLowerCase();
 
 		//Search Vowels for inputed letter
+		// JA: You are missing the upper case vowels. "y" is a consonant.
 		if (letter.equals("a")|| letter.equals("e")|| letter.equals("i")
-			||letter.equals("o")||letter.equals("u")||letter.equals("y")) {
+			||letter.equals("o")||letter.equals("u")||letter.equals("y")) { 
 			//If True output that the input is a Vowel
 			System.out.println(letter + " is a vowel");
-		} else {
+		} else { 
+			// JA: You also need to make sure that the character is a letter
 			//Else output that the inout is a consanat
 			System.out.println(letter + " is a consonant");
 		}
