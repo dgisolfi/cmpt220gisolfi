@@ -37,7 +37,7 @@ public class analyzeScore {
         }
 
         //Cacl the average of scores
-        average = sum / num + 0.0;
+        average = sum / num + 0.0; // JA: This has to be forced to be a non-integer calculation
         //as long as i is less the num count up
         for (int i = 0; i < num; i++) {
         	//if the scores are greater then the average add to aboveAverage

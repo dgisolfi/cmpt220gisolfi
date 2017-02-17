@@ -12,4 +12,4 @@ public class weightConvert {
             System.out.printf("%-9d%9.1f   |   %-9d%9.2f%n", i, i * 2.2, j, j / 2.2);
         }
     }
-} // JA: Your file was missing this }
+} // JA: Your file was missing this } 
