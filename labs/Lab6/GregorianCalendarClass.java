@@ -2,7 +2,7 @@
 //Author: Daniel Gisolfi
 //Date: 2.5.17
 //lab 6
-
+import java.util.GregorianCalendar; //JA
 //9.5
 
 public class GregorianCalendarClass {

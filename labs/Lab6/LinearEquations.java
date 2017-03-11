@@ -2,7 +2,7 @@
 //Author: Daniel Gisolfi
 //Date: 2.5.17
 //lab 6
-
+import java.util.Scanner; // JA
 //9.11
 public class LinearEquations {
     public static void main(String[] args) {

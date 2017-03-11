@@ -2,7 +2,7 @@
 //Author: Daniel Gisolfi
 //Date: 2.5.17
 //lab 6
-
+import java.util.Scanner;
 //9.13
 public class LocationClass {
     public static void main(String[] args) {
