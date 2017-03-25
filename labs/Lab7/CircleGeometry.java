@@ -59,12 +59,12 @@ public class CircleGeometry {
         }
 
         boolean contains(Circle2D circle) {
-            return distance(circle.x, circle.y) <= Math.abs(radius - circle.radius);
+            return distance(circle.x, circle.y) <= radius - circle.radius; // JA
         }
 
         boolean overlaps(Circle2D circle) {
-            return distance(circle.x, circle.y) <= radius + circle.radius
-                    && !contains(circle);
+            return distance(circle.x, circle.y) <= radius + circle.radius;
+  //                  && !contains(circle); // JA: Not needed
         }
 
         double distance(double x, double y) {

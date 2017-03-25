@@ -4,6 +4,7 @@
 //lab 7
 
 //10.23
+import java.util.Arrays; // JA: You missed this
 
 public class ImplementStringClass {
     public static void main(String[] args) {

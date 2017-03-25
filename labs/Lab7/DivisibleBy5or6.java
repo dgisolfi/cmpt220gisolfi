@@ -4,6 +4,7 @@
 //lab 7
 
 //10.21
+import java.math.BigInteger; // JA: You missed this
 
 public class DivisibleBy5or6 {
     public static void main(String[] args) {

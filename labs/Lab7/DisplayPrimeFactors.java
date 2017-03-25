@@ -4,7 +4,7 @@
 //lab 7
 
 //10.5
-
+// JA: You are missing the StackOfIntegers class
 public class DisplayPrimeFactors {
     public static void main(String[] args) {
         int number = promptInteger();
