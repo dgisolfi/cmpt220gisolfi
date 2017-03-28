@@ -20,26 +20,42 @@ import org.json.simple.parser.ParseException;
 public class PassManager {
 
 	public static void main(String[] args) {
-		write();
-		
-	}
-	public static void menu() {
-		//Display main menu
-		String mainMenu = ("Type one of the following and click enter:\nCreate\nView\n");
-		System.out.print(mainMenu);
-		//Create Scanner
-		Scanner input = new Scanner(System.in);
-		int cmd = input.nextInt();
-		System.out.println(cmd);
+		menu();
+	}	
 
-		if (cmd == 1) {
+	public static void menu() {
+		int userChoice;
+        Scanner input = new Scanner(System.in);
+		userChoice = menuChoice();
+
+		if (userChoice == 1) {
 			write();
-		} else if (cmd == 2) {
+		} else if (userChoice == 2) {
 			read();
+		} else if (userChoice == 3) {
+			System.exit(0);
 		} else {
 			System.out.println("not a valid input");
 		}
 	}
+		
+
+	public static int menuChoice() {
+        int selection;
+        Scanner input = new Scanner(System.in);
+
+        /***************************************************/
+
+        System.out.println("Choose from these choices");
+        System.out.println("-------------------------");
+        System.out.println("1 - Add a new Password");
+        System.out.println("2 - View a password");
+        System.out.println("3 - Quit");
+
+        selection = input.nextInt();
+        System.out.println();
+        return selection;    
+    }
 
 	// public class Account{
 	// 	public String accountName;
@@ -47,20 +63,22 @@ public class PassManager {
 	// 	public String password;
 	// }
 	public static void write() {
+		//Create Scanner
 		Scanner input = new Scanner(System.in);
-
+		//Prompt user for a new login
 		System.out.println("Create new login:");
-
+		//Prompt user for name of the account
 		System.out.print("What is the name of this account? ");
 		String accountName = input.next();
-
-		System.out.print("What is the username ? ");
+		//Prompt user for username
+		System.out.print("What is the username? ");
 		String username = input.next();
-
+		//Prompt User for password
 		System.out.print("What is the password? ");
 		String pw = input.next();
-
+		//Create new JSON object
 		JSONObject accountObj = new JSONObject();
+		//add each element of the account to the JSON file
 		accountObj.put("Account Name", accountName);
 		accountObj.put("Username", username);
 		accountObj.put("Password", pw);
@@ -68,13 +86,17 @@ public class PassManager {
 		try {
 			
 			// Writing to a file
+			//Create new file with name Password
 			File file=new File("Password.json");
+			//Physically create it
 			file.createNewFile();
+			//Open file writer
 			FileWriter fileWriter = new FileWriter(file);
 			System.out.println("Writing JSON object to file");
 			//System.out.println("-----------------------");
 			//System.out.print(accountObj);
- 
+ 			
+ 			//Write to file then close it.
 			fileWriter.write(accountObj.toJSONString());
 			fileWriter.flush();
 			fileWriter.close();
@@ -82,7 +104,8 @@ public class PassManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
- 
+ 		
+ 		menu();
 	}
 	
 	public static void read() {
@@ -102,6 +125,7 @@ public class PassManager {
 			//Print Password
 			String password = (String) jsonObject.get("Password");
 			System.out.println("Password: "+ password);
+			System.out.println();
 		 
 		  	} catch (FileNotFoundException e) {
 		   	e.printStackTrace();
@@ -110,6 +134,7 @@ public class PassManager {
 		  	} catch (ParseException e) {
 		   	e.printStackTrace();
 		}
+		menu();
 	}
 
 	public static void generatePw() {
@@ -123,5 +148,5 @@ public class PassManager {
 			alphabet.charAt(r.nextInt(alphabet.length()));
 		} // prints 50 random characters from alphabet
 	}
-
 }
+
