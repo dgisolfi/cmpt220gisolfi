@@ -8,6 +8,7 @@
 import utility.Triangle;
 import java.util.Scanner;
 
+// JA: Where is theTriangle class?
 public class TriangleClass {
     public static void main(String[] args) {
         double[] sides = promptDoubleValues(3);
