@@ -1,3 +1,10 @@
+//CMPT 220
+//Author: Daniel Gisolfi
+//Date: 4.10.17
+//lab 9
+
+//12.1
+
 public class NumberFormatException {
     /**
      * Main method
