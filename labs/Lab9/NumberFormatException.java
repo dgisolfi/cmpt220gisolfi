@@ -1,4 +1,4 @@
-public class PE_12_01_Part_1_NumberFormatException {
+public class NumberFormatException {
     /**
      * Main method
      */
