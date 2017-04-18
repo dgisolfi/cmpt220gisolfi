@@ -7,15 +7,15 @@
 
 public class TriangleClass {
     public static void main(String[] args) {
-        PE_13_01_Triangle triangle = createUserTriangle();
+        Triangle triangle = createUserTriangle();
         System.out.println(triangle);
     }
 
-    private static PE_13_01_Triangle createUserTriangle() {
+    private static Triangle createUserTriangle() {
         double[] sides = promptDoubleValues(3);
         String color = promptStringValue("Enter the color: ");
         boolean isFilled = promptBooleanValue();
-        PE_13_01_Triangle triangle = new PE_13_01_Triangle(sides[0], sides[1], sides[2]);
+        Triangle triangle = new Triangle(sides[0], sides[1], sides[2]);
         triangle.setColor(color);
         triangle.setFilled(isFilled);
         return triangle;
