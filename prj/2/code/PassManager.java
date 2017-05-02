@@ -16,24 +16,77 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
 public class PassManager {
-
 	public static void main(String[] args) {
-		menu();
-	}	
+		login();
+	}
+
+	public static int loginChoice() {
+		//declare variable for future selection
+		int selection;
+		//Create Scanner
+        Scanner input = new Scanner(System.in);
+
+        /***************************************************/
+
+        System.out.println("Choose from these choices");
+        System.out.println("-------------------------");
+        System.out.println("1 - Login");
+        System.out.println("2 - Create Account");
+        //Get next integer with scanner
+        selection = input.nextInt();
+        //Print a buffer line
+        System.out.println();
+        //return decision to main method
+        return selection;  
+	}
+
+	public static void login() {
+		//Create Scanner
+		Scanner input = new Scanner(System.in);
+		//Prompt User for password
+		System.out.println("Enter Master Password");
+		//Create variable to hold user password
+		String mainpw = "d";
+		//user password is the next line entered
+		String userinput = input.next();
+		System.out.println(userinput);
+		
+		if (userinput == mainpw) {
+			//Return to menu
+			System.out.println();
+			menu();
+		} else {
+			System.out.println("Wrong Password");
+			login();
+		}
+	}
 
 	public static void menu() {
+		//Create Scanner
+		Scanner input = new Scanner(System.in);
+		//Declare variable for future selection
 		int userChoice;
-        Scanner input = new Scanner(System.in);
+		//call menuChoice method
 		userChoice = menuChoice();
-
+		
+		//if the user chose number 1, call write method
 		if (userChoice == 1) {
+			//call write method
 			write();
+		//Else if the user chose number 2, call write method
 		} else if (userChoice == 2) {
+			//call read method
 			read();
+		//Else if the user chose number 3, call generatepw method
 		} else if (userChoice == 3) {
+			//call generatePw method
+			generatePw();
+		//Else if the user chose number 4, quit program
+		} else if (userChoice == 4) {
+			//quit program
 			System.exit(0);
+		//Else tell the user that there entry is invalid
 		} else {
 			System.out.println("not a valid input");
 		}
@@ -41,7 +94,9 @@ public class PassManager {
 		
 
 	public static int menuChoice() {
+		//declare variable for future selection
         int selection;
+        //Create Scanner
         Scanner input = new Scanner(System.in);
 
         /***************************************************/
@@ -50,10 +105,14 @@ public class PassManager {
         System.out.println("-------------------------");
         System.out.println("1 - Add a new Password");
         System.out.println("2 - View a password");
-        System.out.println("3 - Quit");
+        System.out.println("3 - Generate a password");
+        System.out.println("4 - Quit");
 
+    	//Get next integer with scanner
         selection = input.nextInt();
+        //Print a buffer line
         System.out.println();
+        //return decision to main method
         return selection;    
     }
 
@@ -63,6 +122,7 @@ public class PassManager {
 	// 	public String password;
 	// }
 	public static void write() {
+
 		//Create Scanner
 		Scanner input = new Scanner(System.in);
 		//Prompt user for a new login
@@ -138,15 +198,16 @@ public class PassManager {
 	}
 
 	public static void generatePw() {
-		//Random rand = new Random();
-		//int  n = rand.nextInt(50) + 1;
-
-		Random r = new Random();
-		//String strongPW = " "
-		String alphabet = "abcdefghijklmnopqrstuvwxyz123456789";
+		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";	
 		for (int i = 0; i < 20; i++) {
-			alphabet.charAt(r.nextInt(alphabet.length()));
-		} // prints 50 random characters from alphabet
+			Random rand = new Random();
+			int  n = rand.nextInt(60) + 1;
+			String pw = alphabet.substring(n, n+1);
+		} 
+
+		System.out.println();
+		menu();
 	}
 }
+
 
