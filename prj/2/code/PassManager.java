@@ -18,27 +18,8 @@ import org.json.simple.parser.ParseException;
 
 public class PassManager {
 	public static void main(String[] args) {
+		menu();
 		login();
-	}
-
-	public static int loginChoice() {
-		//declare variable for future selection
-		int selection;
-		//Create Scanner
-        Scanner input = new Scanner(System.in);
-
-        /***************************************************/
-
-        System.out.println("Choose from these choices");
-        System.out.println("-------------------------");
-        System.out.println("1 - Login");
-        System.out.println("2 - Create Account");
-        //Get next integer with scanner
-        selection = input.nextInt();
-        //Print a buffer line
-        System.out.println();
-        //return decision to main method
-        return selection;  
 	}
 
 	public static void login() {
@@ -47,10 +28,9 @@ public class PassManager {
 		//Prompt User for password
 		System.out.println("Enter Master Password");
 		//Create variable to hold user password
-		String mainpw = "d";
+		String mainpw = "dan369";
 		//user password is the next line entered
 		String userinput = input.next();
-		System.out.println(userinput);
 		
 		if (userinput == mainpw) {
 			//Return to menu
@@ -116,84 +96,87 @@ public class PassManager {
         return selection;    
     }
 
-	// public class Account{
-	// 	public String accountName;
-	// 	public String username;
-	// 	public String password;
-	// }
 	public static void write() {
 
-		//Create Scanner
-		Scanner input = new Scanner(System.in);
-		//Prompt user for a new login
-		System.out.println("Create new login:");
-		//Prompt user for name of the account
-		System.out.print("What is the name of this account? ");
-		String accountName = input.next();
-		//Prompt user for username
-		System.out.print("What is the username? ");
-		String username = input.next();
-		//Prompt User for password
-		System.out.print("What is the password? ");
-		String pw = input.next();
-		//Create new JSON object
-		JSONObject accountObj = new JSONObject();
-		//add each element of the account to the JSON file
-		accountObj.put("Account Name", accountName);
-		accountObj.put("Username", username);
-		accountObj.put("Password", pw);
- 
-		try {
-			
-			// Writing to a file
-			//Create new file with name Password
-			File file=new File("Password.json");
-			//Physically create it
-			file.createNewFile();
-			//Open file writer
-			FileWriter fileWriter = new FileWriter(file);
-			System.out.println("Writing JSON object to file");
-			//System.out.println("-----------------------");
-			//System.out.print(accountObj);
- 			
- 			//Write to file then close it.
-			fileWriter.write(accountObj.toJSONString());
-			fileWriter.flush();
-			fileWriter.close();
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
- 		
+        //Create Scanner
+        Scanner input = new Scanner(System.in);
+        //Prompt user for a new login
+        System.out.println("Create new login:");
+        //Prompt user for name of the account
+        System.out.print("What is the name of this account? ");
+        String accountName = input.next();
+        //Prompt user for username
+        System.out.print("What is the username? ");
+        String username = input.next();
+        //Prompt User for password
+        System.out.print("What is the password? ");
+        String pw = input.next();
+
+        JSONObject newPW = new JSONObject();
+        newPW.put("Account Name", accountName);
+        newPW.put("Username", username);
+        newPW.put("Password", pw);
+
+        File f = new File("Accounts.json");
+        
+        if(f.exists()) { 
+            JSONParser parser = new JSONParser();
+
+            try {
+                Object object = parser.parse(new FileReader("Accounts.json"));
+     
+                JSONObject jsonObject = (JSONObject) object;
+     
+                JSONArray pwlist = (JSONArray) jsonObject.get("Accounts");
+                
+                pwlist.add(newPW);
+
+                try (FileWriter file = new FileWriter("Accounts.json")) {
+                file.write(pwlist.toJSONString());
+                file.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(pwlist);
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        } else {
+            JSONObject obj = new JSONObject();
+
+            JSONArray pwlist = new JSONArray();
+            pwlist.add(newPW);
+            obj.put("Accounts", pwlist);
+
+            try (FileWriter file = new FileWriter("Accounts.json")) {
+            file.write(obj.toJSONString());
+            file.flush();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(pwlist);
+        }
  		menu();
 	}
-	
+
 	public static void read() {
 		JSONParser parser = new JSONParser();
-
-		try {
-
-			Object obj = parser.parse(new FileReader("Password.json"));
-
-			JSONObject jsonObject = (JSONObject) obj;
-		 	//Print Account Name
-			String accountName = (String) jsonObject.get("Account Name");
-			System.out.println("Name of Account: "+ accountName);
-		 	//Print UserName
-		 	String userName = (String) jsonObject.get("Username");
-			System.out.println("Username: "+ userName);
-			//Print Password
-			String password = (String) jsonObject.get("Password");
-			System.out.println("Password: "+ password);
-			System.out.println();
-		 
-		  	} catch (FileNotFoundException e) {
-		   	e.printStackTrace();
-		 	} catch (IOException e) {
-		   	e.printStackTrace();
-		  	} catch (ParseException e) {
-		   	e.printStackTrace();
-		}
+ 
+        try {
+ 
+            Object obj = parser.parse(new FileReader("Accounts.json"));
+ 
+            JSONObject jsonObject = (JSONObject) obj;
+ 
+            JSONArray pwlist = (JSONArray) jsonObject.get("Accounts");
+ 
+            System.out.println(pwlist);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		menu();
 	}
 
