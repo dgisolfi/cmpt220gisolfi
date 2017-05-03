@@ -18,7 +18,6 @@ import org.json.simple.parser.ParseException;
 
 public class PassManager {
 	public static void main(String[] args) {
-		menu();
 		login();
 	}
 
@@ -26,15 +25,15 @@ public class PassManager {
 		//Create Scanner
 		Scanner input = new Scanner(System.in);
 		//Prompt User for password
-		System.out.println("Enter Master Password");
+		System.out.print("Enter Master Password \n>>> ");
 		//Create variable to hold user password
-		String mainpw = "dan369";
+		String pass;
 		//user password is the next line entered
-		String userinput = input.next();
+		pass = input.next();
 		
-		if (userinput == mainpw) {
+		if (pass.equals("dng")) {
 			//Return to menu
-			System.out.println();
+			System.out.println("Login successful");
 			menu();
 		} else {
 			System.out.println("Wrong Password");
@@ -61,10 +60,40 @@ public class PassManager {
 		//Else if the user chose number 3, call generatepw method
 		} else if (userChoice == 3) {
 			//call generatePw method
-			generatePw();
+			String generatedpw = generatePw();
+			System.out.println("Newly generated password:");
+			System.out.println(generatedpw);
+			System.out.println();
+			menu();
 		//Else if the user chose number 4, quit program
 		} else if (userChoice == 4) {
 			//quit program
+			JSONParser parser = new JSONParser();
+ 
+	        try {
+	            Object jsonObject = parser.parse(new FileReader("Accounts.json"));
+	 
+	            JSONObject obj = (JSONObject) jsonObject;
+	 
+	            JSONArray pwlist = (JSONArray) obj.get("Accounts");
+	            String pwString = pwlist.toJSONString();
+	           
+	            String secureString = encrypt(pwString);
+ 				//System.out.println(secureString);
+	            System.out.println("file encrypted");
+
+
+                try (FileWriter file = new FileWriter("Accounts.json")) {
+                file.write(secureString);
+                file.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 			System.exit(0);
 		//Else tell the user that there entry is invalid
 		} else {
@@ -84,7 +113,7 @@ public class PassManager {
         System.out.println("Choose from these choices");
         System.out.println("-------------------------");
         System.out.println("1 - Add a new Password");
-        System.out.println("2 - View a password");
+        System.out.println("2 - View passwords");
         System.out.println("3 - Generate a password");
         System.out.println("4 - Quit");
 
@@ -123,16 +152,17 @@ public class PassManager {
             JSONParser parser = new JSONParser();
 
             try {
-                Object object = parser.parse(new FileReader("Accounts.json"));
+                Object jsonObject = parser.parse(new FileReader("Accounts.json"));
      
-                JSONObject jsonObject = (JSONObject) object;
+                JSONObject obj = (JSONObject) jsonObject;
      
-                JSONArray pwlist = (JSONArray) jsonObject.get("Accounts");
+                JSONArray pwlist = (JSONArray) obj.get("Accounts");
                 
                 pwlist.add(newPW);
+                obj.put("Accounts", pwlist);
 
                 try (FileWriter file = new FileWriter("Accounts.json")) {
-                file.write(pwlist.toJSONString());
+                file.write(obj.toJSONString());
                 file.flush();
 
                 } catch (IOException e) {
@@ -165,12 +195,11 @@ public class PassManager {
 		JSONParser parser = new JSONParser();
  
         try {
+            Object jsonObject = parser.parse(new FileReader("Accounts.json"));
  
-            Object obj = parser.parse(new FileReader("Accounts.json"));
+            JSONObject  obj = (JSONObject) jsonObject;
  
-            JSONObject jsonObject = (JSONObject) obj;
- 
-            JSONArray pwlist = (JSONArray) jsonObject.get("Accounts");
+            JSONArray pwlist = (JSONArray) obj.get("Accounts");
  
             System.out.println(pwlist);
  
@@ -180,16 +209,42 @@ public class PassManager {
 		menu();
 	}
 
-	public static void generatePw() {
+	public static String encrypt(String key) {
+        String result = "";
+        int l = key.length();
+        char ch;
+        for(int i = 0; i < l; i++){
+            ch = key.charAt(i);
+            ch += 10;
+            result += ch;
+        }
+        return result;
+    }
+
+    public static String decrypt(String key) {
+        String result = "";
+        int l = key.length();
+        char ch;
+        for(int i = 0; i < l; i++){
+            ch = key.charAt(i);
+            ch -= 10;
+            result += ch;
+        }
+        return result;
+    }
+
+	public static String generatePw() {
+		//declare variable to hold final password
+		String pw = "";
+		//declare a string that holds all possible characters for the password
 		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";	
+		//cycle through the code 
 		for (int i = 0; i < 20; i++) {
 			Random rand = new Random();
 			int  n = rand.nextInt(60) + 1;
-			String pw = alphabet.substring(n, n+1);
+			pw += alphabet.substring(n, n+1);
 		} 
-
-		System.out.println();
-		menu();
+      return pw;
 	}
 }
 
