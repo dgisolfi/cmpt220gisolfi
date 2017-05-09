@@ -19,6 +19,34 @@ import org.json.simple.parser.ParseException;
 public class PassManager {
 	public static void main(String[] args) {
 		login();
+		JSONParser parser = new JSONParser();
+ 
+	        try {
+	            Object jsonObject = parser.parse(new FileReader("Accounts.json"));
+	 
+	            JSONObject obj = (JSONObject) jsonObject;
+	 
+	            JSONArray pwlist = (JSONArray) obj.get("Accounts");
+	            String pwString = pwlvist.toJSONString();
+	           
+	            String secureString = decrypt(pwString);
+ 				//System.out.println(secureString);
+	            System.out.println("file decrypted");
+
+
+                try (FileWriter file = new FileWriter("Accounts.json")) {
+                file.write(secureString);
+                file.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			System.exit(0);
+		//Else tell the user that there entry is invalid
 	}
 
 	public static void login() {
@@ -34,9 +62,12 @@ public class PassManager {
 		if (pass.equals("dng")) {
 			//Return to menu
 			System.out.println("Login successful");
+			//recall menu method 
 			menu();
 		} else {
+			//notify the user they entered the wrong password
 			System.out.println("Wrong Password");
+			//run the login method again
 			login();
 		}
 	}
@@ -68,37 +99,8 @@ public class PassManager {
 		//Else if the user chose number 4, quit program
 		} else if (userChoice == 4) {
 			//quit program
-			JSONParser parser = new JSONParser();
- 
-	        try {
-	            Object jsonObject = parser.parse(new FileReader("Accounts.json"));
-	 
-	            JSONObject obj = (JSONObject) jsonObject;
-	 
-	            JSONArray pwlist = (JSONArray) obj.get("Accounts");
-	            String pwString = pwlist.toJSONString();
-	           
-	            String secureString = encrypt(pwString);
- 				//System.out.println(secureString);
-	            System.out.println("file encrypted");
-
-
-                try (FileWriter file = new FileWriter("Accounts.json")) {
-                file.write(secureString);
-                file.flush();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-			System.exit(0);
-		//Else tell the user that there entry is invalid
-		} else {
-			System.out.println("not a valid input");
-		}
+			quit();
+		}	
 	}
 		
 
@@ -210,26 +212,42 @@ public class PassManager {
 	}
 
 	public static String encrypt(String key) {
+        //declare variable to hold final string
         String result = "";
+        //find the length of inputed object "key"
         int l = key.length();
+        //create new char to add to result
         char ch;
+        //cycle through the code for the length of key
         for(int i = 0; i < l; i++){
+        	//record char at every i
             ch = key.charAt(i);
+            //move unicode 10 forward
             ch += 10;
+            //add char back to result to encrypt 
             result += ch;
         }
+        //return encrypted string
         return result;
     }
 
     public static String decrypt(String key) {
+    	//declare variable to hold final string
         String result = "";
+        //find the length of inputed object "key"
         int l = key.length();
+        //create new char to add to result
         char ch;
+        //cycle through the code for the length of key
         for(int i = 0; i < l; i++){
+        	//record char at every i
             ch = key.charAt(i);
+            //move unicode 10 backwards
             ch -= 10;
+            //add char back to result to decrypt 
             result += ch;
         }
+        //return decrypted string
         return result;
     }
 
@@ -238,14 +256,53 @@ public class PassManager {
 		String pw = "";
 		//declare a string that holds all possible characters for the password
 		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";	
-		//cycle through the code 
+		//cycle through the code 20 times
 		for (int i = 0; i < 20; i++) {
+			//Create a new random variable
 			Random rand = new Random();
-			int  n = rand.nextInt(60) + 1;
+			//create n and hold a random integer in it
+			int n = rand.nextInt(60) + 1;
+			//use n to pick a radnom character in main alphabet string
 			pw += alphabet.substring(n, n+1);
 		} 
-      return pw;
+		//return final password
+      	return pw;
+	}
+
+	public static void quit();{
+		JSONParser parser = new JSONParser();
+ 
+	        try {
+	            Object jsonObject = parser.parse(new FileReader("Accounts.json"));
+	 
+	            JSONObject obj = (JSONObject) jsonObject;
+	 
+	            JSONArray pwlist = (JSONArray) obj.get("Accounts");
+	            String pwString = pwlvist.toJSONString();
+	           
+	            String secureString = encrypt(pwString);
+ 				//System.out.println(secureString);
+	            System.out.println("file encrypted");
+
+
+                try (FileWriter file = new FileWriter("Accounts.json")) {
+                file.write(secureString);
+                file.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			System.exit(0);
+		//Else tell the user that there entry is invalid
+		} else {
+			System.out.println("not a valid input");
+		}
 	}
 }
+
 
 
